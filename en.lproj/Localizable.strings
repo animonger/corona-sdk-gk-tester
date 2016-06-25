@@ -1,0 +1,27 @@
+/* 
+  English Strings
+*/
+
+"Hey, make your move already :P" = "Hey, make your move already :P";
+
+"Opponent Declined :(" = "Opponent Declined :(";
+
+"I Quit :)" = "I Quit :)";
+
+"I'm outtie" = "I'm outtie";
+
+"Turn-Based Game Over Man, game over" = "Turn-Based Game Over Man, game over";
+
+"Wanna swap cards?" = "Wanna swap cards?";
+
+"You snooze, you lose :P" = "You snooze, you lose :P";
+
+"These are what I give thee." = "These are what I give thee.";
+
+"Turn-Based Match Ended Turn Timeout" = "Turn-Based Match Ended Turn Timeout";
+
+"Turn-Based Match Ended Quit" = "Turn-Based Match Ended Quit";
+
+"Participant %@, check this %@" = "Participant %@, check this %@";
+
+"Participant %@, bagga mouth :D" = "Participant %@, bagga mouth :D";

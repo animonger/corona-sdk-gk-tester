@@ -1,0 +1,27 @@
+/* 
+  Spanish Strings
+*/
+
+"Hey, make your move already :P" = "Oye, haces tu jugada ya :P";  
+
+"Opponent Declined :(" = "Oponente Rehusó :(";
+
+"I Quit :)" = "Abandoné :)";
+
+"I'm outtie" = "Me piro";
+
+"Turn-Based Game Over Man, game over" = "Por Turnos El juego terminó mano, juego terminó";
+
+"Wanna swap cards?" = "¿Quieres intercambiar tarjetas?";
+
+"You snooze, you lose :P" = "Si te duermes, tu pierdes :P"; 
+
+"These are what I give thee." = "Esto es lo que yo te doy."; Esto es lo que yo te doy
+
+"Turn-Based Match Ended Turn Timeout" = "Por Turnos Finalizado Partido Tiempo de espera";
+
+"Turn-Based Match Ended Quit" = "Por Turnos Finalizado Partido Salir";
+
+"Participant %@, check this %@" = "Partícipe %@, mira esto %@";
+
+"Participant %@, bagga mouth :D" = "Partícipe %@, boca grande :D";

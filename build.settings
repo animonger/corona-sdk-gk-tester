@@ -1,0 +1,48 @@
+settings =
+{
+    orientation = 
+    {
+        default = "portrait",
+        supported = { "portrait" },
+    },
+    
+    plugins =
+    {  
+        ["plugin.gamekit"] = { publisherId = "com.animonger", supportedPlatforms = { iphone=true, }, },
+    },
+
+    iphone =
+    {
+        plist =
+        {
+            MinimumOSVersion = "7.0", -- gamekit plugin only works with iOS devices running iOS 7 or greater
+            CFBundleIconFile = "Icon.png",
+            CFBundleIconFiles =
+            {
+                "Icon.png", 
+                "Icon@2x.png", 
+                "Icon-60.png",
+                "Icon-60@2x.png",
+                "Icon-60@3x.png",
+                "Icon-72.png", 
+                "Icon-72@2x.png",
+                "Icon-76.png",
+                "Icon-76@2x.png", 
+                "Icon-Small.png", 
+                "Icon-Small@2x.png",
+                "Icon-Small@3x.png",
+                "Icon-Small-40.png",
+                "Icon-Small-40@2x.png",
+                "Icon-Small-50.png", 
+                "Icon-Small-50@2x.png",
+            },
+                CFBundleLocalizations =
+            {
+                "en",  --English
+                "es",  --Spanish
+            },
+            CFBundleDisplayName = "GKTester",
+            CFBundleName = "GKTester",
+        },
+    }
+}
