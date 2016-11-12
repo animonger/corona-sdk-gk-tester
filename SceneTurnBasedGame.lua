@@ -245,7 +245,11 @@ local function onReleaseSubmitGameCenterTurnBasedSaveDataBtn(e)
     if( composerM.isLocalPlayerCurrentParticipant == true ) then
         if( composerM.isGameCenterEnabled == true ) then
             if( dataStr ~= "" ) then
-                dataStr = dataStr .. " - " .. mimeM.unb64(composerM.currentTurnBasedMatch.matchData) -- base64 decoding
+                local matchData = mimeM.unb64(composerM.currentTurnBasedMatch.matchData) -- base64 decoding
+                if( (matchData == "") or (matchData == nil) ) then
+                    matchData = "."
+                end
+                dataStr = dataStr .. " - " .. matchData
                 local dataB64 = mimeM.b64(dataStr) -- base64 encoding
                 composerM.gameKit.submit( "saveCurrentTurnWithMatchData", 
                 { matchID=composerM.currentTurnBasedMatch.matchID, matchData=dataB64 } )
@@ -270,7 +274,11 @@ local function onReleaseSubmitGameCenterTurnBasedDataEndTurnWithNextParticipants
     if( composerM.isLocalPlayerCurrentParticipant == true ) then
         if( composerM.isGameCenterEnabled == true ) then
             if( dataStr ~= "" ) then
-                dataStr = dataStr .. " - " .. mimeM.unb64(composerM.currentTurnBasedMatch.matchData) -- base64 decoding
+                local matchData = mimeM.unb64(composerM.currentTurnBasedMatch.matchData) -- base64 decoding
+                if( (matchData == "") or (matchData == nil) ) then
+                    matchData = "."
+                end
+                dataStr = dataStr .. " - " .. matchData
                 local dataB64 = mimeM.b64(dataStr) -- base64 encoding
                 local participantMessage = ""
                 local stringFormatArguments = nil
