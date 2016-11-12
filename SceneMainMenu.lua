@@ -36,7 +36,11 @@ end
 
 local function onReleaseShowGameCenterSignInUI_Btn(e)
     print( "[SceneMainMenu] Show Game Center Sign In UI Button Released!!" )
-    composerM.gameKit.show( "gameCenterSignInUI" )
+    if( composerM.isGameCenterEnabled == false ) then
+        composerM.gameKit.show( "gameCenterSignInUI" )
+    else
+        print( "[SceneMainMenu] isGameCenterEnabled = true" )
+    end
     return true
 end
 
