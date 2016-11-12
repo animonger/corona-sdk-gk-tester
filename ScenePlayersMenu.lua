@@ -43,7 +43,7 @@ local function onGameCenterPlayerPhotoCallback(e)
         print( '[ScenePlayersMenu] onGameCenterPlayerPhotoCallback e.errorDescription = ' .. 
         e.errorDescription )
     elseif(e.type == "playerPhoto") then
-        print('[ScenePlayersMenu] playerID = ' .. e.playerID )
+    print('[ScenePlayersMenu] playerID = ' .. e.playerID )
     	playerPhoto = e.photo
     	playerPhoto.x = composerM.contentCenterX
     	playerPhoto.y = 600
@@ -61,9 +61,25 @@ local function onGameCenterFriendsCallback(e)
     	composerM.friends = e.friends
         print( '[ScenePlayersMenu] onMatchmakerGameCenterEvent event.friendsCount = ' .. tostring(e.friendsCount) )
         for i = 1, e.friendsCount do
-            print('[ScenePlayersMenu] friend ' .. tostring(i) .. ' playerID = ' .. e.friends[i].playerID )
-            print('[ScenePlayersMenu] friend ' .. tostring(i) .. ' alias = ' .. e.friends[i].alias )
+        	print('[ScenePlayersMenu] friend ' .. tostring(i) .. ' playerID = ' .. e.friends[i].playerID )
+        	print('[ScenePlayersMenu] friend ' .. tostring(i) .. ' alias = ' .. e.friends[i].alias )
             print('[ScenePlayersMenu] friend ' .. tostring(i) .. ' displayName = ' .. e.friends[i].displayName )
+        end
+    end
+end
+
+local function onGameCenterPlayersCallback(e)
+    print( '[ScenePlayersMenu] onGameCenterPlayersCallback event.name = ' .. e.name )
+    print( '[ScenePlayersMenu] onGameCenterPlayersCallback event.type = ' .. e.type )
+    if(e.type == "error") then
+        print( '[ScenePlayersMenu] onGameCenterPlayersCallback event.errorCode = ' .. e.errorCode )
+        print( '[ScenePlayersMenu] onGameCenterPlayersCallback event.errorDescription = ' .. e.errorDescription )
+    elseif(e.type == "playerList") then
+        print( '[ScenePlayersMenu] onGameCenterPlayersCallback event.playersCount = ' .. tostring(e.playersCount) )
+        for i = 1, e.playersCount do
+        	print('[ScenePlayersMenu] player ' .. tostring(i) .. ' playerID = ' .. e.players[i].playerID )
+        	print('[ScenePlayersMenu] player ' .. tostring(i) .. ' alias = ' .. e.players[i].alias )
+            print('[ScenePlayersMenu] player ' .. tostring(i) .. ' displayName = ' .. e.players[i].displayName )
         end
     end
 end
@@ -71,12 +87,14 @@ end
 local function onReleaseGetGameCenterPlayerPhotoBtn(e)
     print( "[ScenePlayersMenu] Get Game Center Player Photo Button Released" )
     if( composerM.isGameCenterEnabled == true ) then
-        if(composerM.friends ~= nil) then
-            composerM.gameKit.get( "playerPhoto", { playerID=composerM.friends[1].playerID, photoSize="Small",
-            listener=onGameCenterPlayerPhotoCallback } )
-        else
-            print( "[SceneRealTimeGameMenu] Can not invite because friends = nil" )
-        end
+        --composerM.gameKit.get( "playerPhoto", { playerID=composerM.localPlayerID, photoSize="Normal",
+--        listener=onGameCenterPlayerPhotoCallback } )
+		if(composerM.friends ~= nil) then
+			composerM.gameKit.get( "playerPhoto", { playerID=composerM.friends[1].playerID, photoSize="Small",
+        	listener=onGameCenterPlayerPhotoCallback } )
+		else
+			print( "[SceneRealTimeGameMenu] Can not invite because friends = nil" )
+		end
     else
         print( "[ScenePlayersMenu] Can not get because isGameCenterEnabled = false" )
     end
@@ -97,6 +115,10 @@ local function onReleaseShowGameCenterFriendRequestUI_Btn(e)
     print( "[ScenePlayersMenu] Show Game Center Friend Request UI Button Released" )
     if( composerM.isGameCenterEnabled == true ) then
         composerM.gameKit.show( "gameCenterFriendRequestUI", { message="PLEASE, be my friend!" } )
+		--composerM.gameKit.show( "gameCenterFriendRequestUI", { message="PLEASE, be my friend!", 
+--        playerIDs = { "G:965594188" } } )
+        --composerM.gameKit.show( "gameCenterFriendRequestUI", { message="PLEASE, be my friend!", 
+--        emailAddresses = { "ios7testie@yahoo.com", "ios6testie@yahoo.com" } } )
     else
         print( "[ScenePlayersMenu] Can not get because isGameCenterEnabled = false" )
     end
@@ -107,6 +129,21 @@ local function onReleaseGetGameCenterFriendsBtn(e)
     print( "[ScenePlayersMenu] Get Game Center Friends Button Released" )
     if( composerM.isGameCenterEnabled == true ) then
         composerM.gameKit.get( "friends", { listener=onGameCenterFriendsCallback } )
+    else
+        print( "[ScenePlayersMenu] Can not get because isGameCenterEnabled = false" )
+    end
+    return true
+end
+
+local function onReleaseGetPlayersWithPlayerIDsBtn(e)
+    print( "[ScenePlayersMenu] Get Players With PlayerIDs Button Released" )
+    if( composerM.isGameCenterEnabled == true ) then
+   		if(composerM.friends ~= nil) then
+        	composerM.gameKit.get( "playersWithPlayerIDs", { playerIDs={composerM.friends[1].playerID, 
+       		composerM.friends[2].playerID}, listener=onGameCenterPlayersCallback } )
+    	else
+			print( "[ScenePlayersMenu] Can not get because friends = nil" )
+		end
     else
         print( "[ScenePlayersMenu] Can not get because isGameCenterEnabled = false" )
     end
@@ -190,6 +227,22 @@ function scene:create(e)
     getGameCenterFriendsBtn.y = 276
     sceneGroup:insert(getGameCenterFriendsBtn)
     
+    local getPlayersWithPlayerIDsBtn = widget.newButton {
+        label = "Get Players With PlayerIDs",
+        labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
+        fontSize = 35,
+        onRelease = onReleaseGetPlayersWithPlayerIDsBtn,
+        shape="roundedRect",
+        width = 600,
+        height = 56,
+        cornerRadius = 4,
+        fillColor = { default={ 1, 0, 0, 1 }, over={ 1, 0.1, 0.7, 0.4 } },
+        strokeColor = { default={ 1, 0.4, 0, 1 }, over={ 0.8, 0.8, 1, 1 } },
+        strokeWidth = 4
+    }
+    getPlayersWithPlayerIDsBtn.x = composerM.contentCenterX
+    getPlayersWithPlayerIDsBtn.y = 352
+    sceneGroup:insert(getPlayersWithPlayerIDsBtn)
     
     local backBtn = widget.newButton {
     label = "<  Back",
@@ -211,6 +264,7 @@ function scene:create(e)
 end
 
 function scene:show(e)
+--    local sceneGroup = self.view
     if(e.phase == 'will') then
         if(playerPhoto ~= nil) then
        		playerPhoto:removeSelf()
@@ -222,6 +276,7 @@ function scene:show(e)
 end
 
 function scene:hide(e)
+--    local sceneGroup = self.view
     if (e.phase == 'will') then
         
     elseif (e.phase == 'did' ) then
